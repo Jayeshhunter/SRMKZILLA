@@ -132,7 +132,11 @@ app.post("/eminem", (req, res) => {
   const search = new RegExp(req.body.searching, "i");
   Item.find({ title: search }, function (err, foundItems) {
     console.log(foundItems);
-    res.render("index", { newListItems: foundItems });
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("index", { newListItems: foundItems.splice(-1) });
+    }
   });
 });
 
